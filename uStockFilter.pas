@@ -1,4 +1,4 @@
-﻿unit uStockFilter;
+unit uStockFilter;
 
 interface
 

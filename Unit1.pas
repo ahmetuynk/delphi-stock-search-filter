@@ -89,23 +89,23 @@ begin
     rdbAktifUrunler, rdbPasifUrunler, chcTumunuSec, lblSayfaBilgisi, editSayfaNumarasi, DataSource1
   );
 
-  StockManager.PageSize := 100; // varsayÄ±lan pageSize
+  StockManager.PageSize := 100; // varsayılan pageSize
   StockManager.PageNumber := 1;
 end;
 
 procedure TForm1.FormShow(Sender: TObject);
 begin
-  cmbSayfaLimit.ItemIndex := 0; // VarsayÄ±lan olarak ilk Ã¶ÄŸeyi seÃ§
+  cmbSayfaLimit.ItemIndex := 0; // Varsayılan olarak ilk öğeyi seç
 
   if cmbSayfaLimit.Text = 'Max' then
     StockManager.PageSize := 1000000
   else
     StockManager.PageSize := StrToIntDef(cmbSayfaLimit.Text, 100);
     
-  StockManager.PageNumber := 1; // BaÅŸlangÄ±Ã§ sayfasÄ±
+  StockManager.PageNumber := 1; // Başlangıç sayfası
 
-  StockManager.CalculateTotalRecords;  // Toplam kayÄ±t sayÄ±sÄ±nÄ± hesapla
-  StockManager.LoadPage(StockManager.PageNumber);  // Ä°lk sayfayÄ± yÃ¼kle
+  StockManager.CalculateTotalRecords;  // Toplam kayıt sayısını hesapla
+  StockManager.LoadPage(StockManager.PageNumber);  // İlk sayfayı yükle
 end;
 
 procedure TForm1.cmbSayfaLimitChange(Sender: TObject);
@@ -118,11 +118,11 @@ begin
   else
     NewPageSize := StrToIntDef(cmbSayfaLimit.Text, 100);
 
-  // StockManager'Ä± gÃ¼ncelle
+  // StockManager'ı güncelle
   StockManager.PageSize := NewPageSize;
   StockManager.PageNumber := 1;
   
-  // Toplam kayÄ±t sayÄ±sÄ±nÄ± yeniden hesapla ve ilk sayfayÄ± yÃ¼kle
+  // Toplam kayıt sayısını yeniden hesapla ve ilk sayfayı yükle
   StockManager.CalculateTotalRecords;
   StockManager.LoadPage(1);
 end;
@@ -166,10 +166,10 @@ procedure TForm1.editSayfaNumarasiChange(Sender: TObject);
 var
   NewPageNumber: Integer;
 begin
-  // Yeni sayfa numarasÄ±nÄ± al
+  // Yeni sayfa numarasını al
   NewPageNumber := StrToIntDef(editSayfaNumarasi.Text, 1);
   
-  // GeÃ§erli aralÄ±kta mÄ± kontrol et
+  // Geçerli aralıkta mı kontrol et
   if (NewPageNumber >= 1) and (NewPageNumber <= StockManager.MaxPage) then
   begin
     StockManager.LoadPage(NewPageNumber);
@@ -196,7 +196,7 @@ begin
   StockManager.LoadPage(1);
 end;
 
-// TÃ¼m filter deÄŸiÅŸiklik olaylarÄ± Timer'Ä± tetikler
+// Tüm filter değişiklik olayları Timer'ı tetikler
 procedure TForm1.editKalanStokChange(Sender: TObject);
 begin
   Timer1.Enabled := False;
@@ -239,7 +239,7 @@ begin
   Timer1.Enabled := True;
 end;
 
-// RadioButton deÄŸiÅŸiklikleri
+// RadioButton değişiklikleri
 procedure TForm1.rdbAktifUrunlerClick(Sender: TObject);
 begin
   StockManager.PageNumber := 1;

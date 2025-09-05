@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 111
-  Top = 46
+  Left = 243
+  Top = 235
   Width = 1299
   Height = 716
   Caption = 'Full Text Search Filtreleme'
@@ -56,11 +56,17 @@ object Form1: TForm1
     ParentFont = False
   end
   object Label8: TLabel
-    Left = 48
+    Left = 32
     Top = 8
-    Width = 87
-    Height = 13
+    Width = 107
+    Height = 16
     Caption = 'Connection String:'
+    Font.Charset = DEFAULT_CHARSET
+    Font.Color = clWindowText
+    Font.Height = -13
+    Font.Name = 'MS Sans Serif'
+    Font.Style = []
+    ParentFont = False
   end
   object Label9: TLabel
     Left = 32

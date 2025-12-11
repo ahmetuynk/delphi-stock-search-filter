@@ -27,7 +27,7 @@ type
     FLblSayfa: TLabel;
     FEditSayfaNumarasi: TEdit;
     FDataSource: TDataSource;
-    // FieldsForFts dizisini buraya ekle
+    
     FFieldsForFts: array of string;
     procedure AutoSizeDBGridColumns(DBGrid: TDBGrid);
   public
@@ -61,7 +61,7 @@ constructor TStockManager.Create(AQuery1, AQuery2: TADOQuery; DBGrid: TDBGrid;
                    RdbAktif, RdbPasif: TRadioButton; ChcTumunuSec: TCheckBox;
                    lblSayfa: TLabel; editSayfa: TEdit; DataSource: TDataSource);
 begin
-  // Balant˝l˝ bile˛enleri atama
+  // Ba√∞lant√Ωl√Ω bile√æenleri atama
   FADOQuery1 := AQuery1;
   FADOQuery2 := AQuery2;
   FDBGrid := DBGrid;
@@ -78,7 +78,7 @@ begin
   FEditSayfaNumarasi := editSayfa;
   FDataSource := DataSource;
 
-  // Full Text Search iÁin kullan˝lacak alanlar
+  // Full Text Search i√ßin kullan√Ωlacak alanlar
   SetLength(FFieldsForFts, 7);
   FFieldsForFts[0] := 'STOKADI';
   FFieldsForFts[1] := 'STOKMODEL';
@@ -89,7 +89,7 @@ begin
   FFieldsForFts[6] := 'TISLETBIRIM';
 end;
 
-//KULLANICIDAN ALINAN F›LTRE KR›TERLER›N› ›ﬁLEY›P SQL WHERE C‹MLES› OLUﬁTURUR
+//KULLANICIDAN ALINAN F√ùLTRE KR√ùTERLER√ùN√ù √ù√ûLEY√ùP SQL WHERE C√úMLES√ù OLU√ûTURUR
 function TStockManager.BuildFilterText: string;
 var
   FilterText, SQLFilter, Term, FieldFilter: string;
@@ -97,15 +97,15 @@ var
   I, J: Integer;
 begin
 
- //Filtreleme metnini ba˛lat
+ //Filtreleme metnini ba√ælat
  FilterText:='';
 
-  // Full Text Search kontrol¸ (editFTS2 bo˛ deilse)
+  // Full Text Search kontrol√º (editFTS2 bo√æ de√∞ilse)
   if Trim(FEditFTS2.Text) <> '' then
 begin
   Terms := TStringList.Create;
   try
-    // Kullan˝c˝n˝n girdii metni bo˛luklara gˆre ay˝r
+    // Kullan√Ωc√Ωn√Ωn girdi√∞i metni bo√æluklara g√∂re ay√Ωr
     Terms.Delimiter := ' ';
     Terms.DelimitedText := Trim(FEditFTS2.Text);
 
@@ -117,7 +117,7 @@ begin
       begin
         FieldFilter := '';
 
-        // Her alan iÁin CONTAINS ile arama yap
+        // Her alan i√ßin CONTAINS ile arama yap
         for J := 0 to High(FFieldsForFts) do
         begin
           if FieldFilter <> '' then
@@ -125,7 +125,7 @@ begin
           FieldFilter := FieldFilter + Format('CONTAINS(%s, ''"%s*" '')', [FFieldsForFts[J], Term]);
         end;
 
-        // Birden fazla kelime varsa bunlar˝ AND ile bala
+        // Birden fazla kelime varsa bunlar√Ω AND ile ba√∞la
         if FieldFilter <> '' then
         begin
           if SQLFilter <> '' then
@@ -135,7 +135,7 @@ begin
       end;
     end;
 
-    // SonuÁ filtreyi ekle
+    // Sonu√ß filtreyi ekle
     if SQLFilter <> '' then
       FilterText := FilterText + ' AND (' + SQLFilter + ')';
   finally
@@ -143,7 +143,7 @@ begin
   end;
 end;
 
-  // Dier alan bazl˝ filtreler
+  // Di√∞er alan bazl√Ω filtreler
   if Trim(FEditStokGrup.Text) <> '' then
     FilterText := FilterText + ' AND STOKGRUP LIKE ''%' + Trim(FEditStokGrup.Text) + '%''';
 
@@ -159,21 +159,21 @@ end;
   if Trim(FEditMarkaAd.Text) <> '' then
     FilterText := FilterText + ' AND STOKMARKA LIKE ''%' + Trim(FEditMarkaAd.Text) + '%''';
 
-  // Aktif/Pasif ¸r¸n seÁimi
+  // Aktif/Pasif √ºr√ºn se√ßimi
   if FRdbAktifUrunler.Checked then
     FilterText := FilterText + ' AND AKTIFPASIF = ''A''';
 
   if FRdbPasifUrunler.Checked then
     FilterText := FilterText + ' AND AKTIFPASIF = ''P''';
 
-  // Eer filtre varsa ba˛˝na WHERE ekle
+  // E√∞er filtre varsa ba√æ√Ωna WHERE ekle
   if FilterText <> '' then
     FilterText := ' WHERE ' + Copy(FilterText, 5, Length(FilterText) - 4);
 
   Result:=FilterText;
 end;
 
-//VER›LEN SAYFA NUMARASINA G÷RE ›LG›L› KAYITLARI VER›TABANINDAN «EKER VE GRID'E Y‹KLER
+//VER√ùLEN SAYFA NUMARASINA G√ñRE √ùLG√ùL√ù KAYITLARI VER√ùTABANINDAN √áEKER VE GRID'E Y√úKLER
 procedure TStockManager.LoadPage(Page: Integer);
 var
   Offset: Integer;
@@ -182,32 +182,32 @@ begin
   FPageNumber := Page;
   FChcTumunuSec.Checked:=False;
 
-  if (Page < 1) or (Page > FMaxPage) then  //sorgunun sonucu bo˛ dˆnd¸yse
+  if (Page < 1) or (Page > FMaxPage) then  //sorgunun sonucu bo√æ d√∂nd√ºyse
   begin
-   FLblSayfa.Caption := Format('Toplam Sayfa: %d, Mevcut Sayfa: %d, Toplam Kay˝t: %d', [FMaxPage, Page, TotalRecords]);
+   FLblSayfa.Caption := Format('Toplam Sayfa: %d, Mevcut Sayfa: %d, Toplam Kay√Ωt: %d', [FMaxPage, Page, TotalRecords]);
     FADOQuery1.Close;
     FDBGrid.DataSource := nil;
     Exit;
   end;
 
-  // Sayfalama iÁin Offset hesaplama
+  // Sayfalama i√ßin Offset hesaplama
   Offset := (Page - 1) * PageSize;
 
   SQLText := 'SELECT STOKID, STOKKODU, STOKADI, AKTIFPASIF, BIRIMI, KDVORAN, ' +
-             'KALANMIK AS "STOK", OZELFIYAT AS "L›STE F›YATI", PERSATFIYAT AS "SATIﬁ F›YATI", ' +
-             'TISLETBIRIM AS "ANA ‹R‹N KODU", BARKODNO, KURTIPI, ACIKLAMA, TKAPASITE1 AS "KARGO DES› M›KTARI", ' +
+             'KALANMIK AS "STOK", OZELFIYAT AS "L√ùSTE F√ùYATI", PERSATFIYAT AS "SATI√û F√ùYATI", ' +
+             'TISLETBIRIM AS "ANA √úR√úN KODU", BARKODNO, KURTIPI, ACIKLAMA, TKAPASITE1 AS "KARGO DES√ù M√ùKTARI", ' +
              'STOKMARKA, STOKGRUP, STOKMODEL AS "BOYUT/BEDEN", STOKOZELLIK AS "RENK" ' +
              'FROM STOKKART';
 
   //Filtreyi Uygula
   AdjustFilterOnTextChange(SQLText, Offset);
 
-  // Sayfa numaras˝n˝ g¸ncelle
-  FLblSayfa.Caption := Format('Toplam Sayfa: %d, Mevcut Sayfa: %d, Toplam Kay˝t: %d', [FMaxPage, Page, TotalRecords]);
+  // Sayfa numaras√Ωn√Ω g√ºncelle
+  FLblSayfa.Caption := Format('Toplam Sayfa: %d, Mevcut Sayfa: %d, Toplam Kay√Ωt: %d', [FMaxPage, Page, TotalRecords]);
   FEditSayfaNumarasi.Text:=IntToStr(Page);
 end;
 
-//KULLANIICNIN ARAMA KUTUSUNA YAZDI–I METNE G÷RE SQL SORGUSUNU D›NAM›K OLARAK G‹NCELLER
+//KULLANIICNIN ARAMA KUTUSUNA YAZDI√êI METNE G√ñRE SQL SORGUSUNU D√ùNAM√ùK OLARAK G√úNCELLER
 procedure TStockManager.AdjustFilterOnTextChange(var SQLText: string; Offset: Integer);
 var
   FilterText: string;
@@ -215,16 +215,16 @@ begin
 
   FilterText:= BuildFilterText; 
 
-  // Filtrelenmi˛ SQL sorgusunu olu˛tur
+  // Filtrelenmi√æ SQL sorgusunu olu√ætur
   SQLText := SQLText + FilterText + ' ORDER BY STOKID ' +
              Format('OFFSET %d ROWS FETCH NEXT %d ROWS ONLY', [Offset, PageSize]);
 
-  // Sorguyu Áal˝˛t˝r
+  // Sorguyu √ßal√Ω√æt√Ωr
   FADOQuery1.Close;
   FADOQuery1.SQL.Text := SQLText;
   FADOQuery1.Open;
 
-  // Grid'i g¸ncelle
+  // Grid'i g√ºncelle
   FDBGrid.DataSource := FDataSource;
   AutoSizeDBGridColumns(FDBGrid);
 end;
@@ -243,19 +243,19 @@ begin
   FADOQuery2.SQL.Text := RecordCountQuery;
   FADOQuery2.Open;
 
-  // Toplam kay˝t ve maksimum sayfa say˝s˝n˝ hesapla
+  // Toplam kay√Ωt ve maksimum sayfa say√Ωs√Ωn√Ω hesapla
   TotalRecords := FADOQuery2.FieldByName('Total').AsInteger;
   FMaxPage := Ceil(TotalRecords / PageSize);
 end;
 
-//DBGRID UZERINDE SONRAK› SAYFAYI Y‹KLEMEK ›«›N
+//DBGRID UZERINDE SONRAK√ù SAYFAYI Y√úKLEMEK √ù√á√ùN
 procedure TStockManager.NextPage;
 begin
   if PageNumber < MaxPage then
     LoadPage(PageNumber + 1);
 end;
 
-//DBGRID UZERINDE ÷NCEK› SAYFAYA D÷NMEK ›«›N
+//DBGRID UZERINDE √ñNCEK√ù SAYFAYA D√ñNMEK √ù√á√ùN
 procedure TStockManager.PrevPage;
 begin
   if PageNumber > 1 then

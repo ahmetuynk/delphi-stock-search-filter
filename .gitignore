@@ -16,3 +16,8 @@ ModelSupport_/
 Win32/
 Win64/
 *.exe
+
+# Delphi 7 Özel Proje ve Diyagram Dosyaları
+*.cfg
+*.dof
+*.ddp

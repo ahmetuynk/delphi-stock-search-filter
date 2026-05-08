@@ -44,7 +44,6 @@ type
     EditMarkaAd: TEdit;
     XPManifest1: TXPManifest;
     Button1: TButton;
-    btnGereksizButon: TButton;
     procedure editKalanStokChange(Sender: TObject);
     procedure editStokGrupChange(Sender: TObject);
     procedure EditUrunAdChange(Sender: TObject);

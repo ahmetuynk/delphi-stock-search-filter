@@ -335,14 +335,6 @@ object Form1: TForm1
     TabOrder = 18
     Visible = False
   end
-  object btnGereksizButon: TButton
-    Left = 968
-    Top = 88
-    Width = 75
-    Height = 25
-    Caption = 'Gereksiz Buton'
-    TabOrder = 19
-  end
   object ADOQuery1: TADOQuery
     Parameters = <>
     Left = 1152

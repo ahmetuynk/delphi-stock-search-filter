@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 243
-  Top = 235
+  Left = 143
+  Top = 174
   Width = 1299
   Height = 716
   Caption = 'Full Text Search Filtreleme'

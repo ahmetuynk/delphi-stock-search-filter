@@ -1,6 +1,6 @@
 object Form1: TForm1
-  Left = 143
-  Top = 174
+  Left = 135
+  Top = 107
   Width = 1299
   Height = 716
   Caption = 'Full Text Search Filtreleme'
@@ -324,6 +324,16 @@ object Form1: TForm1
     Height = 21
     TabOrder = 17
     OnChange = EditMarkaAdChange
+  end
+  object Button1: TButton
+    Left = 1152
+    Top = 0
+    Width = 105
+    Height = 25
+    Caption = 'Test Butonu'
+    Enabled = False
+    TabOrder = 18
+    Visible = False
   end
   object ADOQuery1: TADOQuery
     Parameters = <>

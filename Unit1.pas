@@ -43,6 +43,7 @@ type
     EditBarkod: TEdit;
     EditMarkaAd: TEdit;
     XPManifest1: TXPManifest;
+    Button1: TButton;
     procedure editKalanStokChange(Sender: TObject);
     procedure editStokGrupChange(Sender: TObject);
     procedure EditUrunAdChange(Sender: TObject);
@@ -74,7 +75,7 @@ var
   StockManager: TStockManager;
 
 implementation
-
+//-----
 {$R *.dfm}
 
 procedure TForm1.FormCreate(Sender: TObject);

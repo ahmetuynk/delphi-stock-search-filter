@@ -1,0 +1,18 @@
+# Delphi gecici ve derleme dosyalari
+*.dcu
+*.~*
+*.local
+*.identcache
+*.projdata
+*.tvsconfig
+*.stat
+
+# Log ve Cikti Klasorleri(varsa)
+__history/
+__recovery/
+ModelSupport_/
+
+# Cikti ve Derleme Klasorleri (Executable dosyalar)
+Win32/
+Win64/
+*.exe
